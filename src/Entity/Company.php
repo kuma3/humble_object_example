@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Kuma\ExampleOfHumbleObject\Entity;
 
-readonly class Company
+class Company
 {
     public function __construct(public string $company_domain, public int $number_of_employees) {}
 
@@ -16,7 +16,7 @@ readonly class Company
     {
         assert($this->number_of_employees + $delta > 0);
 
-        return new self($this->company_domain, $this->number_of_employees + $delta);
+        $this->number_of_employees = $this->number_of_employees + $delta;
     }
 
     /**
