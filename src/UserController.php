@@ -7,12 +7,16 @@ class UserController
 {
     public function changeEmailAddress(int $user_id, string $new_email_address)
     {
-        $user_record = DB\User::getByUserId($user_id);
-        $user = new User($user_record['user_id'], $user_record['email_address'], $user_record['type']);
+        $user_entity = DB\User::getByUserId($user_id);
+        $user = new User($user_entity->user_id,  $user_entity->email_address, $user_entity->user_type);
 
-        $company_data = DB\Company::getCompany();
+        $company_entity = DB\Company::getCompany();
 
-        $new_number_of_employees = $user->changeEmailAddress($new_email_address, $company_data['company_domain'], $company_data['number_of_employees']);
+        $new_number_of_employees = $user->changeEmailAddress(
+            $new_email_address,
+            $company_entity->company_domain,
+            $company_entity->number_of_employees
+        );
 
         DB\User::save($user);
         DB\Company::updateNumberOfEmployees($new_number_of_employees);

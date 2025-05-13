@@ -5,9 +5,12 @@ namespace Kuma\ExampleOfHumbleObject\DB;
 
 class Company
 {
-    public static function getCompany(): array
+    public static function getCompany(): \Kuma\ExampleOfHumbleObject\Entity\Company
     {
-        return ['company_domain' => 'example.com', 'number_of_employees' => 100];
+        return new \Kuma\ExampleOfHumbleObject\Entity\Company(
+            company_domain: 'example.com',
+            number_of_employees: 100,
+        );
     }
 
     public static function updateNumberOfEmployees(int $number_of_employees)
