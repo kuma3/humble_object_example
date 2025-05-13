@@ -1,0 +1,12 @@
+{
+    "name": "kuma/example_of_humble_object",
+    "type": "project",
+    "require": {
+        "phpunit/phpunit": "^12.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Kuma\\ExampleOfHumbleObject\\": "src/"
+        }
+    }
+}
