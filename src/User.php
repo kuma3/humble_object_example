@@ -20,25 +20,25 @@ class User
     /**
      * ユーザーのEメールアドレスを変更する
      */
-    public function changeEmailAddress(string $new_email_address): void
+    public function changeEmailAddress(string $new_email_address, string $company_domain, int $number_of_employees): int
     {
         if ($this->email_address !== $new_email_address) {
-            return;
+            return $number_of_employees;
         }
 
-        $company = DB\Company::getCompany();
         $new_email_domain = explode('@', $new_email_address)[1];
 
-        $new_user_type = $company['company_domain'] === $new_email_domain ? UserType::Employee : UserType::Customer;
+        $new_user_type = $company_domain === $new_email_domain ? UserType::Employee : UserType::Customer;
 
+        $new_number_of_employees = $number_of_employees;
         if ($this->user_type !== $new_user_type) {
-            // NOTE: こんなコード書いちゃだめだぞ！
-            DB\Company::updateNumberOfEmployees($company['number_of_employees'] + 1);
+            $delta = $new_user_type === UserType::Customer ? -1 : 1;
+            $new_number_of_employees = $number_of_employees + $delta;
         }
 
         $this->email_address = $new_email_address;
         $this->user_type = $new_user_type;
 
-        DB\User::save($this);
+        return $new_number_of_employees;
     }
 }
