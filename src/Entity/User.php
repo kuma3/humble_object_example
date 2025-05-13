@@ -11,7 +11,7 @@ class User
 
     public function changeEmailAddress(string $new_email_address, Company $company): void
     {
-        if ($this->email_address !== $new_email_address) {
+        if ($this->email_address === $new_email_address) {
             return;
         }
 
