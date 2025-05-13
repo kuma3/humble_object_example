@@ -10,15 +10,14 @@ class UserController
         $user_entity = DB\User::getByUserId($user_id);
         $user = new User($user_entity->user_id,  $user_entity->email_address, $user_entity->user_type);
 
-        $company_entity = DB\Company::getCompany();
+        $company = DB\Company::getCompany();
 
-        $new_number_of_employees = $user->changeEmailAddress(
+        $user->changeEmailAddress(
             $new_email_address,
-            $company_entity->company_domain,
-            $company_entity->number_of_employees
+            $company
         );
 
         DB\User::save($user);
-        DB\Company::updateNumberOfEmployees($new_number_of_employees);
+        DB\Company::save($company);
     }
 }

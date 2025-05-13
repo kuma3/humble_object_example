@@ -13,6 +13,16 @@ class Company
         );
     }
 
+    /**
+     * Entityを保存する
+     *
+     * @param \Kuma\ExampleOfHumbleObject\Entity\Company $company
+     */
+    public static function save(\Kuma\ExampleOfHumbleObject\Entity\Company $company): void
+    {
+        // Save query here
+    }
+
     public static function updateNumberOfEmployees(int $number_of_employees)
     {
         // Update query here
