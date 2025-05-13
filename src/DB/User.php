@@ -11,8 +11,17 @@ class User
     {
     }
 
-    public static function getByUserId(int $user_id)
+    public static function getByUserId(int $user_id): \Kuma\ExampleOfHumbleObject\Entity\User
     {
-        return ['user_id' => $user_id, 'email_address' => 'contact@example.com', 'type' => UserType::Customer];
+        // 本当はクエリして取得する
+        // $user_record = Sql::execute($user_id);
+
+        // 合わせて$user_recordの内容のアサーションもすると良い
+
+        return new \Kuma\ExampleOfHumbleObject\Entity\User(
+            user_id: $user_id,
+            email_address: 'contact@example.com',
+            user_type: UserType::Customer
+        );
     }
 }
